@@ -1,13 +1,17 @@
 services:
   lb:
-    image: nginx:1.27-alpine
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
     container_name: todo-lb
     depends_on:
       - web1
       - web2
       - web3
     ports:
-      - "${LB_PORT:-8080}:80"
+      - "${LB_PORT:-8080}:8080"
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - nginx_logs:/var/log/nginx
@@ -20,6 +24,8 @@ services:
     container_name: todo-web-1
     hostname: todo-web-1
     init: true
+    security_opt:
+      - no-new-privileges:true
     environment:
       ADDR: ":8080"
       SERVER_NAME: web1
@@ -41,6 +47,8 @@ services:
     container_name: todo-web-2
     hostname: todo-web-2
     init: true
+    security_opt:
+      - no-new-privileges:true
     environment:
       ADDR: ":8080"
       SERVER_NAME: web2
@@ -62,6 +70,8 @@ services:
     container_name: todo-web-3
     hostname: todo-web-3
     init: true
+    security_opt:
+      - no-new-privileges:true
     environment:
       ADDR: ":8080"
       SERVER_NAME: web3
