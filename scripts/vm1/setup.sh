@@ -3,7 +3,11 @@ set -eu
 
 ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
 ENV_FILE=${ENV_FILE:-"$ROOT_DIR/scripts/vm1/vm1.env"}
+EXAMPLE_ENV_FILE="$ROOT_DIR/scripts/vm1/vm1.env.example"
 export ENV_FILE
+
+. "$ROOT_DIR/scripts/lib/common.sh"
+overwrite_env_from_example "$EXAMPLE_ENV_FILE" "$ENV_FILE"
 
 echo "[vm1] install nfs client"
 sh "$ROOT_DIR/scripts/vm1/install-nfs-client.sh"

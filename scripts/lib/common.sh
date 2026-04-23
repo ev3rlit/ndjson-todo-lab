@@ -113,3 +113,15 @@ run_compose() {
             ;;
     esac
 }
+
+overwrite_env_from_example() {
+    example_file=$1
+    env_file=$2
+
+    if [ ! -f "$example_file" ]; then
+        echo "Missing example env file: $example_file" >&2
+        exit 1
+    fi
+
+    cp -f "$example_file" "$env_file"
+}
