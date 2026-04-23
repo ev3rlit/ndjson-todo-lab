@@ -10,6 +10,7 @@ require_root
 
 NFS_SERVER_HOST=${NFS_SERVER_HOST:-}
 NFS_EXPORT_ROOT=${NFS_EXPORT_ROOT:-/srv/nfs/ndjson-todo}
+NFS_MOUNT_SOURCE=${NFS_MOUNT_SOURCE:-/}
 NFS_MOUNT_DIR=${NFS_MOUNT_DIR:-/mnt/ndjson-todo-nfs}
 NFS_MOUNT_OPTIONS=${NFS_MOUNT_OPTIONS:-defaults,_netdev,nofail,vers=4.2}
 
@@ -20,8 +21,9 @@ fi
 
 mkdir -p "$NFS_MOUNT_DIR"
 
-fstab_line="$NFS_SERVER_HOST:$NFS_EXPORT_ROOT $NFS_MOUNT_DIR nfs4 $NFS_MOUNT_OPTIONS 0 0"
+fstab_line="$NFS_SERVER_HOST:$NFS_MOUNT_SOURCE $NFS_MOUNT_DIR nfs4 $NFS_MOUNT_OPTIONS 0 0"
 ensure_line_in_file "$fstab_line" /etc/fstab
+systemctl daemon-reload
 
 if ! mountpoint -q "$NFS_MOUNT_DIR"; then
     mount "$NFS_MOUNT_DIR"
