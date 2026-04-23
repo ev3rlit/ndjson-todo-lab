@@ -1,0 +1,11 @@
+# Exclude git and local agent metadata from the image build context.
+.git
+.agents
+
+# Exclude local artifacts and generated files that the image rebuilds itself.
+ndjson-todo-lab
+todos.ndjson
+pages_templ.go
+rough-sketch.canvas.md
+skills-lock.json
+runtime

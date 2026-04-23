@@ -1,0 +1,16 @@
+# Local agent metadata
+.agents/
+
+# Local environment overrides
+scripts/vm1/vm1.env
+scripts/vm2/vm2.env
+
+# Build artifacts
+ndjson-todo-lab
+
+# Runtime data and logs
+todos.ndjson
+runtime/
+
+# OS noise
+.DS_Store

@@ -1,0 +1,82 @@
+services:
+  lb:
+    image: nginx:1.27-alpine
+    container_name: todo-lb
+    depends_on:
+      - web1
+      - web2
+      - web3
+    ports:
+      - "${LB_PORT:-8080}:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - nginx_logs:/var/log/nginx
+    restart: unless-stopped
+
+  web1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todo-web-1
+    hostname: todo-web-1
+    init: true
+    environment:
+      ADDR: ":8080"
+      SERVER_NAME: web1
+      CONTAINER_NAME: todo-web-1
+      TODO_DATA_FILE: /workspace/data/todos.ndjson
+    command:
+      - /bin/sh
+      - -c
+      - mkdir -p /workspace/logs && ndjson-todo-lab 2>&1 | tee -a /workspace/logs/web1.ndjson
+    volumes:
+      - todo_data:/workspace/data
+      - todo_logs:/workspace/logs
+    restart: unless-stopped
+
+  web2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todo-web-2
+    hostname: todo-web-2
+    init: true
+    environment:
+      ADDR: ":8080"
+      SERVER_NAME: web2
+      CONTAINER_NAME: todo-web-2
+      TODO_DATA_FILE: /workspace/data/todos.ndjson
+    command:
+      - /bin/sh
+      - -c
+      - mkdir -p /workspace/logs && ndjson-todo-lab 2>&1 | tee -a /workspace/logs/web2.ndjson
+    volumes:
+      - todo_data:/workspace/data
+      - todo_logs:/workspace/logs
+    restart: unless-stopped
+
+  web3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todo-web-3
+    hostname: todo-web-3
+    init: true
+    environment:
+      ADDR: ":8080"
+      SERVER_NAME: web3
+      CONTAINER_NAME: todo-web-3
+      TODO_DATA_FILE: /workspace/data/todos.ndjson
+    command:
+      - /bin/sh
+      - -c
+      - mkdir -p /workspace/logs && ndjson-todo-lab 2>&1 | tee -a /workspace/logs/web3.ndjson
+    volumes:
+      - todo_data:/workspace/data
+      - todo_logs:/workspace/logs
+    restart: unless-stopped
+
+volumes:
+  todo_data:
+  todo_logs:
+  nginx_logs:
