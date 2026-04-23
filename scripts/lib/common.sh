@@ -115,22 +115,13 @@ replace_fstab_entry() {
     rm -f "$tmp_file"
 }
 
-container_engine() {
-    echo "${CONTAINER_ENGINE:-docker}"
-}
-
 run_compose() {
-    engine=$(container_engine)
+    if ! command -v podman-compose >/dev/null 2>&1; then
+        echo "podman-compose is required but not installed." >&2
+        exit 1
+    fi
 
-    case "$engine" in
-        docker|podman)
-            "$engine" compose "$@"
-            ;;
-        *)
-            echo "Unsupported container engine: $engine" >&2
-            exit 1
-            ;;
-    esac
+    podman-compose "$@"
 }
 
 overwrite_env_from_example() {

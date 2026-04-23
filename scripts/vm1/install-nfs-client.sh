@@ -8,4 +8,4 @@ ENV_FILE=${ENV_FILE:-"$ROOT_DIR/scripts/vm1/vm1.env"}
 load_env_file "$ENV_FILE"
 require_root
 
-install_packages "$(nfs_client_package)" rsync
+install_packages "$(nfs_client_package)" rsync podman podman-compose
