@@ -1,20 +1,20 @@
 services:
   lb:
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ${NGINX_LOG_DIR:-/srv/ndjson-todo/logs/nginx}:/var/log/nginx
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf${NGINX_CONFIG_BIND_OPTIONS:-:ro,Z}
+      - ${NGINX_LOG_DIR:-/srv/ndjson-todo/logs/nginx}:/var/log/nginx${CONTAINER_BIND_OPTIONS:-:Z}
 
   web1:
     volumes:
-      - ${TODO_DATA_DIR:-/srv/ndjson-todo/data}:/workspace/data
-      - ${TODO_LOG_DIR:-/srv/ndjson-todo/logs}:/workspace/logs
+      - ${TODO_DATA_DIR:-/srv/ndjson-todo/data}:/workspace/data${CONTAINER_BIND_OPTIONS:-:Z}
+      - ${TODO_LOG_DIR:-/srv/ndjson-todo/logs}:/workspace/logs${CONTAINER_BIND_OPTIONS:-:Z}
 
   web2:
     volumes:
-      - ${TODO_DATA_DIR:-/srv/ndjson-todo/data}:/workspace/data
-      - ${TODO_LOG_DIR:-/srv/ndjson-todo/logs}:/workspace/logs
+      - ${TODO_DATA_DIR:-/srv/ndjson-todo/data}:/workspace/data${CONTAINER_BIND_OPTIONS:-:Z}
+      - ${TODO_LOG_DIR:-/srv/ndjson-todo/logs}:/workspace/logs${CONTAINER_BIND_OPTIONS:-:Z}
 
   web3:
     volumes:
-      - ${TODO_DATA_DIR:-/srv/ndjson-todo/data}:/workspace/data
-      - ${TODO_LOG_DIR:-/srv/ndjson-todo/logs}:/workspace/logs
+      - ${TODO_DATA_DIR:-/srv/ndjson-todo/data}:/workspace/data${CONTAINER_BIND_OPTIONS:-:Z}
+      - ${TODO_LOG_DIR:-/srv/ndjson-todo/logs}:/workspace/logs${CONTAINER_BIND_OPTIONS:-:Z}

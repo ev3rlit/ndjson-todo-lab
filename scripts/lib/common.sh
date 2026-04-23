@@ -95,3 +95,21 @@ ensure_line_in_file() {
         printf '%s\n' "$expected_line" >> "$target_file"
     fi
 }
+
+container_engine() {
+    echo "${CONTAINER_ENGINE:-docker}"
+}
+
+run_compose() {
+    engine=$(container_engine)
+
+    case "$engine" in
+        docker|podman)
+            "$engine" compose "$@"
+            ;;
+        *)
+            echo "Unsupported container engine: $engine" >&2
+            exit 1
+            ;;
+    esac
+}

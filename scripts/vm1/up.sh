@@ -21,4 +21,4 @@ for required_dir in "$TODO_DATA_DIR" "$TODO_LOG_DIR" "$NGINX_LOG_DIR"; do
 done
 
 cd "$ROOT_DIR"
-docker compose -f docker-compose.yml -f docker-compose.vm1.yml up -d --build web1 web2 web3 lb
+run_compose -f docker-compose.yml -f docker-compose.vm1.yml up -d --build web1 web2 web3 lb

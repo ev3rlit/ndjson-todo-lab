@@ -8,5 +8,5 @@ ENV_FILE=${ENV_FILE:-"$ROOT_DIR/scripts/vm1/vm1.env"}
 load_env_file "$ENV_FILE"
 
 cd "$ROOT_DIR"
-docker compose -f docker-compose.yml -f docker-compose.vm1.yml stop lb web1 web2 web3
-docker compose -f docker-compose.yml -f docker-compose.vm1.yml rm -f lb web1 web2 web3
+run_compose -f docker-compose.yml -f docker-compose.vm1.yml stop lb web1 web2 web3
+run_compose -f docker-compose.yml -f docker-compose.vm1.yml rm -f lb web1 web2 web3
