@@ -96,6 +96,25 @@ ensure_line_in_file() {
     fi
 }
 
+replace_fstab_entry() {
+    mount_dir=$1
+    new_line=$2
+    target_file=$3
+
+    tmp_file=$(mktemp)
+    if [ -f "$target_file" ]; then
+        awk -v mount_dir="$mount_dir" '
+            $0 ~ /^[[:space:]]*#/ { print; next }
+            NF < 2 { print; next }
+            $2 != mount_dir { print }
+        ' "$target_file" > "$tmp_file"
+    fi
+
+    printf '%s\n' "$new_line" >> "$tmp_file"
+    cat "$tmp_file" > "$target_file"
+    rm -f "$tmp_file"
+}
+
 container_engine() {
     echo "${CONTAINER_ENGINE:-docker}"
 }

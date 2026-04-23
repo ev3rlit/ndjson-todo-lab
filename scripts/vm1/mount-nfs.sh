@@ -22,7 +22,7 @@ fi
 mkdir -p "$NFS_MOUNT_DIR"
 
 fstab_line="$NFS_SERVER_HOST:$NFS_MOUNT_SOURCE $NFS_MOUNT_DIR nfs4 $NFS_MOUNT_OPTIONS 0 0"
-ensure_line_in_file "$fstab_line" /etc/fstab
+replace_fstab_entry "$NFS_MOUNT_DIR" "$fstab_line" /etc/fstab
 systemctl daemon-reload
 
 if ! mountpoint -q "$NFS_MOUNT_DIR"; then
