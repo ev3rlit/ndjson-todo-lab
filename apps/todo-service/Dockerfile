@@ -3,10 +3,10 @@
 # Build the Linux binary and regenerate templ output inside the image build.
 FROM golang:1.25.6-alpine AS build
 
-WORKDIR /src
+WORKDIR /src/apps/todo-service
 
 # Copy dependency metadata first so module download can be cached.
-COPY go.mod go.sum ./
+COPY apps/todo-service/go.mod apps/todo-service/go.sum ./
 
 RUN --mount=type=cache,target=/go/pkg/mod \
     --mount=type=cache,target=/root/.cache/go-build \
@@ -15,7 +15,7 @@ RUN --mount=type=cache,target=/go/pkg/mod \
 # Keep the templ CLI version aligned with the repo dependency.
 RUN go install github.com/a-h/templ/cmd/templ@v0.3.1001
 
-COPY main.go pages.templ ./
+COPY apps/todo-service/main.go apps/todo-service/pages.templ ./
 
 RUN templ generate
 

@@ -215,17 +215,17 @@ flowchart TB
 
 ## 파일 구조 예시
 
-- `main.go`
-- `pages.templ`
-- `todos.ndjson`
+- `apps/todo-service/main.go`
+- `apps/todo-service/pages.templ`
+- `apps/todo-service/todos.ndjson`
+- `apps/slides/slides.md`
 
 ## 파일 생성 정책
 
-- 루트에서 전부 관리
-- Go 로직은 `main.go` 단일 파일로 유지
-- `templ`만 `pages.templ`로 분리
-- 시작 시 `todos.ndjson`가 없으면 자동 생성
-- shared volume도 루트의 `todos.ndjson`를 바라보게 구성
+- Go 로직은 `apps/todo-service/main.go` 단일 파일로 유지
+- `templ`만 `apps/todo-service/pages.templ`로 분리
+- 시작 시 `apps/todo-service/todos.ndjson`가 없으면 자동 생성
+- 발표 자료는 `apps/slides`에서 Slidev로 관리
 
 ## 실습에서 확인할 것
 

@@ -1,0 +1,16 @@
+{
+  "name": "@ndjson-todo-lab/slides",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev --open false",
+    "build": "slidev build",
+    "export:pdf": "mkdir -p exports && slidev export --output exports/ndjson-todo-lab",
+    "export:pptx": "mkdir -p exports && slidev export --format pptx --output exports/ndjson-todo-lab"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^52.1.0",
+    "@slidev/theme-default": "^0.25.0",
+    "playwright-chromium": "^1.54.0"
+  }
+}

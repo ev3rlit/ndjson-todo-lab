@@ -1,11 +1,15 @@
 # Exclude git and local agent metadata from the image build context.
 .git
 .agents
+node_modules
+apps/slides/node_modules
+apps/slides/dist
+apps/slides/exports
 
 # Exclude local artifacts and generated files that the image rebuilds itself.
 ndjson-todo-lab
-todos.ndjson
-pages_templ.go
+apps/todo-service/todos.ndjson
+apps/todo-service/pages_templ.go
 rough-sketch.canvas.md
 skills-lock.json
 runtime

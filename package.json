@@ -1,0 +1,11 @@
+{
+  "name": "ndjson-todo-lab-monorepo",
+  "private": true,
+  "packageManager": "pnpm@10.17.0",
+  "scripts": {
+    "slides:dev": "pnpm --dir apps/slides dev",
+    "slides:build": "pnpm --dir apps/slides build",
+    "slides:export:pdf": "pnpm --dir apps/slides export:pdf",
+    "slides:export:pptx": "pnpm --dir apps/slides export:pptx"
+  }
+}

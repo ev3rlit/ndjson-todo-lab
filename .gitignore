@@ -7,9 +7,12 @@ scripts/vm2/vm2.env
 
 # Build artifacts
 ndjson-todo-lab
+node_modules/
+apps/slides/dist/
+apps/slides/exports/
 
 # Runtime data and logs
-todos.ndjson
+apps/todo-service/todos.ndjson
 runtime/
 
 # OS noise
