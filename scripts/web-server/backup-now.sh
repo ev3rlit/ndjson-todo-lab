@@ -2,10 +2,14 @@
 set -eu
 
 ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-ENV_FILE=${ENV_FILE:-"$ROOT_DIR/scripts/vm1/vm1.env"}
+ENV_FILE=${ENV_FILE:-"$ROOT_DIR/scripts/web-server/web-server.env"}
 
-. "$ROOT_DIR/scripts/lib/common.sh"
-load_env_file "$ENV_FILE"
+if [ -f "$ENV_FILE" ]; then
+    set -a
+    # shellcheck disable=SC1090
+    . "$ENV_FILE"
+    set +a
+fi
 
 TODO_DATA_DIR=${TODO_DATA_DIR:-/srv/ndjson-todo/data}
 TODO_LOG_DIR=${TODO_LOG_DIR:-/srv/ndjson-todo/logs}

@@ -25,8 +25,8 @@
 - 전체 서비스 실행: `docker compose up --build`
 - Slidev 개발 서버: `pnpm install && pnpm slides:dev`
 - Slidev PPTX export: `pnpm slides:export:pptx`
-- VM2 (`con2`, `10.10.10.50`) 구성: `sudo ENV_FILE=./scripts/vm2/vm2.env ./scripts/vm2/setup.sh`
-- VM1 (`con1`, `10.10.10.40`) 구성: `sudo ENV_FILE=./scripts/vm1/vm1.env ./scripts/vm1/setup.sh`
+- NFS 서버 환경 구성: `sudo ./scripts/nfs-server/setup.sh`
+- 웹서버 실행 환경 구성: `sudo ./scripts/web-server/setup.sh`
 
 ## 구조
 
@@ -47,7 +47,7 @@
 ├── nginx
 ├── scripts
 ├── docker-compose.yml
-├── docker-compose.vm1.yml
+├── docker-compose.web-server.yml
 ├── go.work
 ├── package.json
 └── pnpm-workspace.yaml
@@ -58,7 +58,7 @@ flowchart LR
     user["User"]
     lb["Load Balancer"]
 
-    subgraph service_vm["VM 1 : Go + templ 서비스"]
+    subgraph web_server["웹서버 실행 환경"]
         web1["web1"]
         web2["web2"]
         web3["web3"]
@@ -66,7 +66,7 @@ flowchart LR
         logs["slog JSON logs\nstdout -> collected logs"]
     end
 
-    subgraph backup_vm["VM 2 : 백업"]
+    subgraph nfs_server["NFS 환경"]
         cron["crontab + rsync"]
         nfs["NFS"]
     end

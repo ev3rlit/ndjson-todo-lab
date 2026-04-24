@@ -2,8 +2,8 @@
 .agents/
 
 # Local environment overrides
-scripts/vm1/vm1.env
-scripts/vm2/vm2.env
+scripts/web-server/web-server.env
+scripts/nfs-server/nfs-server.env
 
 # Build artifacts
 ndjson-todo-lab
