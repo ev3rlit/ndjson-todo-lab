@@ -1,6 +1,7 @@
 #!/bin/sh
 set -eu
 
+# 웹서버 실행 환경의 load balancer와 app 컨테이너 상태만 확인한다.
 ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
 ENV_FILE=${ENV_FILE:-"$ROOT_DIR/scripts/web-server/web-server.env"}
 
@@ -16,5 +17,6 @@ if ! command -v podman-compose >/dev/null 2>&1; then
     exit 1
 fi
 
+# compose 파일 두 개를 합쳐서 setup과 같은 서비스 정의로 상태를 본다.
 cd "$ROOT_DIR"
 podman-compose -f docker-compose.yml -f docker-compose.web-server.yml ps lb web1 web2 web3
